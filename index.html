@@ -260,3 +260,45 @@
 
 </body>
 </html>
+// KI-Assistent Logik für Elisha16 Music World
+document.addEventListener("DOMContentLoaded", () => {
+    const kiInput = document.getElementById("ki-input");
+    const kiReply = document.getElementById("ki-reply");
+    
+    // Finde den Senden-Button im KI-Tab (der Button neben dem ki-input)
+    if (kiInput && kiReply) {
+        const kiCard = kiInput.closest(".card");
+        const sendBtn = kiCard ? kiCard.querySelector(".send-btn") : null;
+
+        const handleKiQuery = () => {
+            const query = kiInput.value.trim();
+            if (!query) return;
+
+            // Zeige die Frage als Status an
+            kiReply.innerHTML = `<strong>Du:</strong> ${query}<br><span style="color: #aaa;">Elisha16 KI denkt nach...</span>`;
+            kiInput.value = "";
+
+            // Simuliere eine smarte Antwort der KI nach 1 Sekunde
+            setTimeout(() => {
+                let answer = "Das ist ein cooler Vibe für deinen Musik-Channel! Wie wäre es mit einem fetten Beat dazu?";
+                if (query.toLowerCase().includes("song") || query.toLowerCase().includes("beat")) {
+                    answer = "Tipp für deinen nächsten Track: Versuche es mit einer melodischen Synth-Melodie und einem knackigen Bass-Drop!";
+                } else if (query.toLowerCase().includes("hallo") || query.toLowerCase().includes("hi")) {
+                    answer = "Hey! Willkommen in der Elisha16 Music World. Was möchtest du heute produzieren?";
+                }
+                
+                kiReply.innerHTML = `<strong>Elisha16 KI:</strong> ${answer}`;
+            }, 1000);
+        };
+
+        if (sendBtn) {
+            sendBtn.addEventListener("click", handleKiQuery);
+        }
+        
+        kiInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                handleKiQuery();
+            }
+        });
+    }
+});
